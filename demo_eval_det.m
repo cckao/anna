@@ -4,13 +4,13 @@
 
 fprintf('DETECTION TASK\n');
 
-pred_file = 'out.txt';
-meta_file = 'gt/meta.mat';
-eval_file = 'gt/ids.txt';
+pred_file = 'demo/results.txt';
+meta_file = 'demo/meta.mat';
+eval_file = 'demo/ids.txt';
 blacklist_file = 'blacklist.txt';
 
 optional_cache_file = '';
-gtruth_directory = 'gt/annotations';
+gtruth_directory = 'demo/annotations';
 
 fprintf('pred_file: %s\n', pred_file);
 fprintf('meta_file: %s\n', meta_file);
@@ -40,15 +40,13 @@ load(meta_file);
 fprintf('-------------\n');
 fprintf('Category\tAP\n');
 for i=1:length(ap)
-    if ap(i) <= 0
-        continue
-    end
-
-    s = synsets(i).name;
-    if length(s) < 8
-        fprintf('%s\t\t%0.3f\n',s,ap(i));
-    else
-        fprintf('%s\t%0.3f\n',s,ap(i));
+    if ap(i) > 0
+        s = synsets(i).name;
+        if length(s) < 8
+            fprintf('%s\t\t%0.3f\n',s,ap(i));
+        else
+            fprintf('%s\t%0.3f\n',s,ap(i));
+        end
     end
 end
 fprintf(' - - - - - - - - \n');
